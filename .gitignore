@@ -1,0 +1,15 @@
+data.json
+status.json
+runs.jsonl
+replies.jsonl
+hook-state.json
+demo-vault/.obsidian/workspace*.json
+demo-vault/.obsidian/plugins/brain-network/status.json
+demo-vault/.obsidian/plugins/brain-network/runs.jsonl
+demo-vault/.obsidian/plugins/brain-network/replies.jsonl
+demo-vault/.obsidian/plugins/brain-network/hook-state.json
+*.jsonl.tmp
+hook-state.json.tmp
+.tools-cache/
+# The demo ships safe settings (agent sending off); local runs must not overwrite them in git
+!demo-vault/.obsidian/plugins/brain-network/data.json

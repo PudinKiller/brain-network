@@ -1,0 +1,9 @@
+{
+  "id": "brain-network",
+  "name": "Brain Network",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Your brains as a living map: who holds the ball in each project, gates waiting on you with their review images, and replies that reach Claude and Codex.",
+  "author": "PudinKiller",
+  "isDesktopOnly": true
+}
