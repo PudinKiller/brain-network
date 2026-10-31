@@ -1,5 +1,6 @@
 ---
 brain-state: "done"
+brain-ask: "Use the accepted palette baseline as a baseline; see Result in this note."
 brain-stream: "Materials"
 date: "2026-10-18"
 status: "Fictional palette baseline accepted by Mira."

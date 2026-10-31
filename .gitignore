@@ -13,3 +13,8 @@ hook-state.json.tmp
 .tools-cache/
 # The demo ships safe settings (agent sending off); local runs must not overwrite them in git
 !demo-vault/.obsidian/plugins/brain-network/data.json
+FIX_NOTES.md
+# Local Obsidian preferences are not part of the demo content.
+demo-vault/.obsidian/app.json
+demo-vault/.obsidian/appearance.json
+demo-vault/.obsidian/core-plugins.json

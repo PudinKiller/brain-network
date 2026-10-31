@@ -12,3 +12,7 @@ status: "Fictional follow-up planned after the session review."
 Prepare a small feedback table after the session plan is reviewed. Leave its observation cells empty until there is evidence to record.
 
 This note demonstrates a planned item declared with brain-state.
+
+## Result
+
+No result yet. Record the outcome and evidence here when the planned work begins.

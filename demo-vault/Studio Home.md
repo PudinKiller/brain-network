@@ -5,8 +5,8 @@ brain-streams:
   - "Production"
   - "Build"
 brain-plan:
-  - {"title": "Tiny credits panel", "stream": "Production", "state": "planned", "gate": "approval", "ask": "Should the three names appear on one card?", "after": ["[[Build Checklist]]"]}
-  - {"title": "Night market expansion", "stream": "Production", "state": "parked", "ask": "Revisit after the first delivery loop feels complete."}
+  - {"title":"Tiny credits panel","stream":"Production","state":"planned","gate":"approval","ask":"Should the three names appear on one card?","after":["[[Build Checklist]]"],"link":"[[Studio Home#Tiny credits panel]]"}
+  - {"title":"Night market expansion","stream":"Production","state":"parked","ask":"Revisit after the first delivery loop feels complete.","link":"[[Studio Home#Night market expansion]]"}
 ---
 # Lantern Fox Games
 
@@ -14,7 +14,7 @@ This is a fictional studio and a fictional project snapshot dated 2026-10-24. Ev
 
 Mira handles art and direction. Tobi builds tools and gameplay. Neri handles sound, the trailer, and play sessions. Their small game, **Mosslight Courier**, follows a fox delivering one lantern through a floating garden.
 
-Open the Brain Network map to explore five brains. Double-click a brain to see its streams, then select an item to read its question and evidence.
+Open the Brain Network map to explore eight brains. Double-click a brain to see its streams, then select an item to read its question and evidence.
 
 | Brain | Focus |
 | --- | --- |
@@ -22,6 +22,9 @@ Open the Brain Network map to explore five brains. Double-click a brain to see i
 | [[Level Tools/Level Tools]] | Room stamps and readable routes |
 | [[Launch Trailer/Launch Trailer]] | Shot order, title card, and capture |
 | [[Playtest/Playtest]] | Control cards and a short play session |
+| [[Shader Lab/Lantern Shader/Lantern Shader]] | Night material, under Shader Lab |
+| [[Launch Trailer/Store Page/Store Page]] | Offline page packet, under Launch Trailer |
+| [[Accessibility/Accessibility]] | Shared controls, under Playtest and Level Tools |
 
 ## Next studio calls
 
@@ -32,3 +35,11 @@ Open the Brain Network map to explore five brains. Double-click a brain to see i
 The notes use agent names to illustrate handoffs. This vault contains no game source and no completed agent runs. For map-only browsing, turn off **Send messages to Claude** in Brain Network settings before replying.
 
 See [[Decision Log]] for studio decisions and [[AGENTS]] for the sample collaboration rules.
+
+## Tiny credits panel
+
+No result yet. Record the outcome and evidence here.
+
+## Night market expansion
+
+Paused. Revisit only when the stated prerequisite is met.

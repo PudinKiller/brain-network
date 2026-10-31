@@ -1,5 +1,6 @@
 ---
 brain-state: "done"
+brain-ask: "Use the accepted title card as a baseline; see Result in this note."
 brain-gate: "approval"
 brain-stream: "Edit"
 brain-review:

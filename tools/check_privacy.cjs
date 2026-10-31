@@ -23,6 +23,7 @@ const scan = (term, omitReport) => run([...base, ...(omitReport ? ['--glob', '!P
 const explanation = (file, term) => {
   if (file === 'tools/check_privacy.cjs') return 'Intentional search vocabulary, report text, or audit logic in this script.';
   if (file === 'tools/check_yaml.cjs' && term === 'Ken') return 'Substring in the model.broken assertion for malformed front matter; no person is named.';
+  if (file === 'FIX_NOTES.md' && term === 'Ken') return 'Substring in broken-image descriptions in the ignored local repair notes; no person is named.';
   if (file === '.git/hooks/applypatch-msg.sample' && term === 'Ken') return 'Substring in the word taken in a stock Git hook comment. This metadata is not a published project file.';
   if (file === '.git/hooks/pre-commit.sample' && term === 'visa') return 'Substring in the word advisable in a stock Git hook message. This metadata is not a published project file.';
   if (file === '.git/hooks/fsmonitor-watchman.sample' && ['Ken', 'token'].includes(term)) return 'Stock Git file-watcher state identifiers and comments; no credential value. This metadata is not a published project file.';
@@ -59,7 +60,7 @@ function main() {
   let report = [
     '# Privacy check', '',
     'Checked 2026-10-31. [hands-on] Searches ran from the repository root using ripgrep. Searches are case-insensitive fixed substrings, so matches inside longer words count.', '',
-    'Scope: the whole directory, including hidden files, ignored files, and local Git metadata. Binary PNGs are skipped by ripgrep\'s default binary detection; the generated images were also visually inspected. The five runtime basenames below are always excluded to avoid reading private runtime content. File inventory confirmed that none are present. No temporary tool cache remains.', '',
+    'Scope: the whole directory, including hidden files, ignored files, and local Git metadata. Binary PNGs and MP4s are skipped by ripgrep\'s default binary detection; inspect their pixels separately. The five runtime basenames below are excluded from text scanning. The bundled data.json is validated separately by check_yaml.cjs, which requires dispatch off. Local runtime logs stay ignored. Media tools and raw captures live outside the repository.', '',
     '## Commands run', '',
     'The script runs each of the 17 terms separately with the same options to build the table. These combined searches were also run:', '',
     '```powershell',
@@ -75,7 +76,7 @@ function main() {
     'Every hit outside this report is listed by file and line below. Repeated bundled-source hits come from the required demo plugin copy. No unexplained hits were found. A text search cannot establish that arbitrary future content is safe to publish.', '',
     ...detail,
     '## Public author handle', '',
-    'The exact public handle `PudinKiller` appears as the author in both manifests (line 7). These two hits are expected. The README also identifies the author by this public handle.', '',
+    'The exact public handle `PudinKiller` appears as the author in both manifests (line 7). These two hits are expected. LICENSE and the README use the same public copyright holder.', '',
     '## Reproduce', '',
     'Run `node tools/check_privacy.cjs`. It rewrites this report, repeats the full-directory searches, checks the resulting counts, and fails on an unexplained source hit. After adding screenshots or a clip, inspect those files separately and rerun this audit.', ''
   ].join('\n');

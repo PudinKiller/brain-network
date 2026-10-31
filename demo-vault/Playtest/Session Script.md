@@ -1,5 +1,6 @@
 ---
 brain-state: "done"
+brain-ask: "Use the accepted session script as a baseline; see Result in this note."
 brain-stream: "Session"
 date: "2026-10-19"
 status: "Fictional first draft of the session script completed by Neri."

@@ -1,79 +1,32 @@
 # Demo notes
 
-Lantern Fox Games is a fictional three-person studio making Mosslight Courier. Mira handles art, Tobi handles tools, and Neri handles the trailer and play sessions. The sample snapshot is dated 2026-10-24.
+Lantern Fox Games and Mosslight Courier are fictional. Mira handles art, Tobi handles tools, and Neri handles trailers and play sessions. The sample snapshot is dated 2026-10-24. Handoffs and replies are invented history. The six art PNGs are labelled placeholders.
 
-## File tree
+The vault contains eight brains, 36 items, nine plan entries, and 33 resolved dependencies. Nine note items were added for the deeper demo. Existing notes retain their outcomes. Missing asks and result locations were filled in.
 
-```text
-.
-├── main.js
-├── styles.css
-├── manifest.json
-├── hooks/replies.cjs
-├── README.md
-├── .gitignore
-├── PRIVACY_CHECK.md
-├── DEMO_NOTES.md
-├── docs/README.md                     # three screenshots and a clip still TODO
-├── tools/
-│   ├── check_yaml.cjs
-│   ├── check_privacy.cjs
-│   └── generate-assets.ps1
-└── demo-vault/
-    ├── Studio Home.md
-    ├── AGENTS.md
-    ├── Decision Log.md
-    ├── Demo Scope.md
-    ├── Build Checklist.md
-    ├── Shader Lab/                   # front page, rules, log, four items, outline brief
-    ├── Level Tools/                  # front page, rules, log, four items, overlay brief
-    ├── Launch Trailer/               # front page, rules, log, four items
-    ├── Playtest/                     # front page, rules, log, four items
-    ├── Assets/
-    │   ├── lantern-concept-a.png
-    │   ├── lantern-concept-b.png
-    │   ├── room-route.png
-    │   ├── trailer-board.png
-    │   ├── title-card.png
-    │   └── control-cards.png
-    └── .obsidian/
-        ├── community-plugins.json
-        └── plugins/brain-network/
-            ├── main.js
-            ├── styles.css
-            ├── manifest.json
-            └── hooks/replies.cjs
-```
-
-Every brain has a front page, four or five rules, and a Decision Log. Front pages contain nine plan entries in total.
-
-## What the brains show
-
-| Brain | Items | Demonstration |
+| Brain | Items | Purpose |
 | --- | ---: | --- |
-| Studio | 4 | Root with four child brains, scope approval, completed checklist, planned and parked scope |
-| Shader Lab | 6 | Two streams, a two-image art gate, a filled Owner review, a queued brief, linked planned work |
-| Level Tools | 5 | A route decision, a queued tool brief, dependency chain, a plan entry linked to a draft note |
-| Launch Trailer | 6 | A look gate, a dependency on Shader Lab, a completed title card with Owner review, parked edit work |
-| Playtest | 6 | An art gate, session questions, a planned note item, planned accessibility work, a parked idea |
+| Studio | 4 | Scope and studio priorities |
+| Shader Lab | 6 | Material and lighting direction |
+| Lantern Shader | 4 | Reusable night material, under Shader Lab |
+| Level Tools | 5 | Room authoring and route tools |
+| Launch Trailer | 6 | Edit and capture direction |
+| Store Page | 3 | Offline page packet, under Launch Trailer |
+| Playtest | 6 | Session and control-card preparation |
+| Accessibility | 2 | Shared controls, with Playtest and Level Tools as parents |
 
-## Checks
+Every brain has a front page, AGENTS.md, and Decision Log. Parent links express priority relationships. Cross-brain dependencies connect the palette, session script, grid rules, title card, and shot board to downstream outcomes.
 
-[hands-on] Run `node tools/check_yaml.cjs` from the repository root. It parses the YAML subset used by this demo, then runs the plugin's actual `buildModel` function against a metadata-cache fixture. The checker supports block mappings with JSON scalar/flow values and block sequences of JSON values. It rejects other syntax; it is not a general-purpose YAML parser. No external packages are needed.
+Lantern Shader shows four distinct outcomes along one dependency chain: Night Palette is done, Night Backdrop waits on the owner, Pulse Envelope has a Codex draft awaiting Claude's verification, and Flicker Clamp is a Claude-led brief queued for Codex. Night Palette contains Brief, Result, Claude verification, and Owner review sections. The chain's unfinished dependencies remain explicit.
 
-The final run checked 39 Markdown files and parsed 23 front-matter blocks. The model produced five brains, 27 items, nine plan entries, and 22 resolved dependencies. State totals: owner 5, claude 4, codex 3, done 5, planned 6, parked 4. All four gate types are present. Every wiki link and plan link resolved in the fixture. Ten review references resolved to six existing PNGs. Two notes have dated Owner review lines.
+[hands-on] `node tools/check_yaml.cjs` parses the restricted YAML syntax used here and runs the plugin's actual model and review resolver against a metadata fixture. It checks all six states, four gate types, three hierarchy levels, the two-parent brain, asks, result links, dependencies, and bundle equality. Fourteen review references resolve to six 1000 × 600 PNGs. Eight path/link forms and a missing file are checked. The safe demo settings require dispatch off. The fixture is not a general YAML parser.
 
-[hands-on] All six PNGs were rendered and visually inspected together. Each is 1000 × 600 and clearly labelled as placeholder art. Regenerate them on Windows with `powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/generate-assets.ps1`.
+[hands-on] The open demo vault in Obsidian 1.14.5 reports eight brains and 36 items. Each of the eight review forms decoded to a 1000 × 600 image in the running app. A moon click and lightbox navigation showed both review images. `dev:errors` and `dev:console level=error` reported no captured errors after the walkthrough. These buffers cover the observed session.
 
-[hands-on] JavaScript syntax checks passed for the plugin, reply hook, and both check scripts. The bundled plugin contains exactly the four requested files and matches the root copies byte for byte. The only intentional edit to the supplied plugin files is the manifest author. No runtime data or license file is included. Runtime-file and workspace ignore rules were checked with `git check-ignore`.
+[hands-on] The three screenshots in [docs](docs/README.md) come from `dev:screenshot`. The clip uses those CLI-driven views, readable brief/result notes, captions, crossfades, and gentle camera movement. It is an edited screenshot walkthrough. `tools/capture_demo.cjs` drives only demo-vault and refuses dispatch on. `tools/render_clip.py` uses ffmpeg from the external media environment.
 
-[hands-on] Run `node tools/check_privacy.cjs` to reproduce the privacy audit. [PRIVACY_CHECK.md](PRIVACY_CHECK.md) lists the commands and explains every match, including source-code substrings and the audit's own search vocabulary.
+[hands-on] `node tools/check_privacy.cjs` checks 17 fixed search patterns and writes [PRIVACY_CHECK.md](PRIVACY_CHECK.md). Review the screenshots and clip separately because text scanning does not audit their pixels.
 
-## TODO and limits
+Live Claude dispatch, Codex launching, the registered reply hook, and reply submission were not exercised. Browsing and capture sent no messages. No game source, performance measurements, or accessibility study is bundled. Obsidian was not restarted or reloaded; only the demo plugin was reloaded. No Git push was performed.
 
-- TODO: Capture the three screenshots and 60-second clip listed in `docs/README.md` and the README.
-- [unverified] The vault has not been opened in desktop Obsidian. Map layout, thumbnails, plugin activation, and interactive reply behavior still need a walkthrough there.
-- [unverified] Live Claude dispatch, the registered reply hook, and Codex launching were not exercised. Their README descriptions come from the supplied source. No live agent runs were started.
-- [unverified] No full YAML-library or Obsidian parser was available. Validation covers the deliberately restricted YAML syntax used here and the plugin model with a fixture.
-
-No GitHub repository was created and nothing was pushed. License selection remains with the owner.
+The project uses the [MIT license](LICENSE), copyright 2026 PudinKiller.

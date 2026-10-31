@@ -1,5 +1,6 @@
 ---
 brain-state: "done"
+brain-ask: "Use the accepted grid rules as a baseline; see Result in this note."
 brain-stream: "Authoring"
 date: "2026-10-19"
 status: "Fictional grid convention recorded by Tobi."

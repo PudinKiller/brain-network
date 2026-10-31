@@ -1931,7 +1931,7 @@ class BrainView extends ItemView {
   closeLightbox() { this.lightbox.hide(); this.lightbox.empty(); this.lb = null; }
   lbStep(d) { if (!this.lb) return; this.lb.i = (this.lb.i + d + this.lb.items.length) % this.lb.items.length; this.renderLightbox(); }
   renderLightbox() {
-    const L = this.lightbox, x = this.lb.items[this.lb.i];
+    const L = this.lightbox, entry = this.lb.items[this.lb.i], x = entry.media || entry;
     L.empty();
     L.onclick = (e) => { if (e.target === L) this.closeLightbox(); };
     const fig = L.createDiv('bn-lb-fig');
@@ -3025,13 +3025,25 @@ module.exports = class BrainNetwork extends Plugin {
   externalSrc(abs) { return this.resourcePrefix() + encodeURI(abs.replace(/\\/g, '/')).replace(/#/g, '%23').replace(/\?/g, '%3F'); }
   mediaEntry(raw, sourcePath) {
     raw = String(raw).trim().replace(/^<|>$/g, '');
+    const md = raw.match(/^!?\[[^\]]*\]\(\s*(<[^>]+>|.+?)(?:\s+["'][^"']*["'])?\s*\)$/);
+    raw = linkTarget(md ? md[1].replace(/^<|>$/g, '') : raw.replace(/^!\[\[/, '[['));
     let abs = null, src = null, exists = false;
     if (/^file:\/\//i.test(raw)) {
-      try { abs = decodeURI(raw.replace(/^file:\/\/\/?/i, '')); } catch (e) { abs = raw.replace(/^file:\/\/\/?/i, ''); }
-    } else if (/^[a-z]:[\\/]/i.test(raw)) abs = raw;
+      try { abs = require('url').fileURLToPath(raw); } catch (e) { /* invalid file URL */ }
+    } else {
+      try { raw = decodeURI(raw); } catch (e) { /* keep literal paths with a percent sign */ }
+      if (nodePath.isAbsolute(raw)) abs = raw;
+    }
     if (abs) { exists = fs.existsSync(abs); src = this.externalSrc(abs); }
     else {
-      const f = this.app.metadataCache.getFirstLinkpathDest(linkTarget(raw), sourcePath) || this.app.vault.getAbstractFileByPath(raw);
+      let f = this.app.metadataCache.getFirstLinkpathDest(raw, sourcePath) || this.app.vault.getAbstractFileByPath(raw)
+        || this.app.vault.getAbstractFileByPath(nodePath.posix.normalize(nodePath.posix.join(nodePath.posix.dirname(sourcePath), raw)));
+      if (!f && !nodePath.posix.extname(raw)) {
+        for (const ext of ['png', 'jpg', 'jpeg', 'webp', 'gif', 'bmp', 'svg', 'mp4', 'webm', 'mov', 'm4v']) {
+          f = this.app.metadataCache.getFirstLinkpathDest(raw + '.' + ext, sourcePath);
+          if (f) break;
+        }
+      }
       if (f && f.extension) { exists = true; src = this.app.vault.getResourcePath(f); abs = nodePath.join(this.app.vault.adapter.getBasePath(), f.path); }
     }
     const name = (abs || raw).split(/[\\/]/).pop();
@@ -3053,7 +3065,7 @@ module.exports = class BrainNetwork extends Plugin {
         const r = text.search(/^#{1,3} Result/m);
         if (r >= 0) text = text.slice(r);
         const found = [];
-        for (const m of text.matchAll(/\]\((file:\/\/\/[^)\s]+)\)/gi)) found.push(m[1]);
+        for (const m of text.matchAll(/!?\[[^\]]*\]\(\s*(?:<[^>]+>|[^)]+)\s*\)/g)) found.push(m[0]);
         for (const m of text.matchAll(/!\[\[([^\]|]+)/g)) found.push(m[1]);
         for (const m of text.matchAll(/`([A-Za-z]:[\\/][^`]+?\.(?:png|jpe?g|webp|gif|mp4|webm|mov))`/gi)) found.push(m[1]);
         const score = (s) => (/review|sheet|grid|compare|contact/i.test(s) ? 0 : 1) + (/oklab|-l\.|gray/i.test(s) ? 1 : 0);
